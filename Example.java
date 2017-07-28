@@ -11,7 +11,7 @@ public class Example extends JavaPlugin {
     @Override
     public void onEnable() {
         
-        // Anonymous implementation of "/check this" sub command.
+        // Anonymous implementation of "/check" root command.
         CommandBase<Example> checkCommand = new CommandBase<Example>(this) {
             @Override
             public boolean runCommand(CommandSender sender, Command rootCommand, String label, String[] args) {
