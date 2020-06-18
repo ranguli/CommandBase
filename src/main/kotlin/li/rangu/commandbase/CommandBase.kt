@@ -3,7 +3,9 @@ package li.rangu.commandbase
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
+import org.bukkit.command.TabCompleter
 import org.bukkit.plugin.Plugin
+import org.bukkit.entity.Player
 import java.util.HashMap
 
 /**
@@ -23,7 +25,7 @@ abstract class CommandBase<P : Plugin>
 * @param plugin The plugin that owns this command.
 */
 
-(plugin: P) : CommandExecutor {
+(plugin: P) : CommandExecutor, TabCompleter {
     private val subCommands = HashMap<String, CommandExecutor>()
 
     /**
@@ -58,6 +60,40 @@ abstract class CommandBase<P : Plugin>
             }
         }
         return runCommand(sender, command, label, args)
+    }
+
+    override fun onTabComplete(sender: CommandSender, cmd: Command, commandLabel: String, args: Array<String>): List<String>? {
+        val list : MutableList<String> = mutableListOf()
+
+        if (sender is Player) {
+            // Check if the command is "something."
+            if (cmd.getName().equals("check", ignoreCase = true)) {
+                // If the player has not typed anything in
+                if (args.size == 0) {
+                    // Add a list of words that you'd like to show up
+                    // when the player presses tab.
+                    list.add("hello")
+                    list.add("hello2")
+
+                    return list.sorted()
+                    // If player has typed one word in.
+                    // This > "/command hello " does not count as one
+                    // argument because of the space after the hello.
+                } else if (args.size == 1) {
+                    list.add("hello")
+                    list.add("hello2")
+                    for (s in list) {
+                        // Since the player has already typed something in,
+                        // we ant to complete the word for them so we check startsWith().
+                        if (!s.toLowerCase().startsWith(args[0].toLowerCase())) {
+                            list.remove(s)
+                        }
+                    }
+                    return list.sorted()
+                }
+            }
+        }
+        return null
     }
 
     /**
