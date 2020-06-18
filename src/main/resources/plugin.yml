@@ -1,0 +1,8 @@
+name: "CommandBase"
+version: ${project.version}
+main: li.rangu.commandbase.Example
+api-version: "1.15"
+prefix: commandbase
+authors: [ranguli]
+description: Example of simple sub-commands in Bukkit
+website: https://github.com/ranguli/CommandBase
