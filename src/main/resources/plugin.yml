@@ -6,3 +6,7 @@ prefix: commandbase
 authors: [ranguli]
 description: Example of simple sub-commands in Bukkit
 website: https://github.com/ranguli/CommandBase
+commands:
+  check:
+    description: its a check command
+    usage: /check
